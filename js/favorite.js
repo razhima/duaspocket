@@ -1,14 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+const container = document.getElementById("favoritesList");
+
+if (!container) {
+console.error("Missing favoritesList container");
+return;
+}
+
 let duas = JSON.parse(localStorage.getItem("duas")) || [];
 
+// filter favorites safely
 let favorites = duas.filter(d => d.favorite === true);
 
-let container = document.getElementById("favoritesList");
-
-if (!container) return;
-
-// EMPTY STATE
+// EMPTY STATE (prevents blank page)
 if (favorites.length === 0) {
 container.innerHTML = `
 <div class="card">
