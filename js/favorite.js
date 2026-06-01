@@ -3,16 +3,33 @@ document.addEventListener("DOMContentLoaded", function () {
 const container = document.getElementById("favoritesList");
 
 if (!container) {
-console.error("Missing favoritesList container");
+console.error("❌ Missing favoritesList container");
 return;
 }
 
-let duas = JSON.parse(localStorage.getItem("duas")) || [];
+/* =========================
+   SAFE LOCALSTORAGE READ
+========================= */
 
-// filter favorites safely
-let favorites = duas.filter(d => d.favorite === true);
+let duas = [];
 
-// EMPTY STATE (prevents blank page)
+try {
+duas = JSON.parse(localStorage.getItem("duas")) || [];
+} catch (e) {
+console.error("❌ Error parsing duas:", e);
+duas = [];
+}
+
+/* =========================
+   FILTER FAVORITES SAFELY
+========================= */
+
+let favorites = duas.filter(d => d && d.favorite === true);
+
+/* =========================
+   EMPTY STATE (NO BLANK PAGE)
+========================= */
+
 if (favorites.length === 0) {
 container.innerHTML = `
 <div class="card">
@@ -23,23 +40,30 @@ container.innerHTML = `
 return;
 }
 
-// RENDER FAVORITES
-container.innerHTML = favorites.map(d => `
+/* =========================
+   RENDER FAVORITES
+========================= */
+
+container.innerHTML = favorites.map(d => {
+
+return `
 <div class="card">
 
-<h3>${d.title}</h3>
+<h3>${d.title || "Untitled Dua"}</h3>
 
 <p><b>Arabic:</b></p>
 <p style="direction:rtl; font-size:20px;">
-${d.arabic}
+${d.arabic || ""}
 </p>
 
 <p><b>Translation:</b></p>
-<p>${d.translation}</p>
+<p>${d.translation || ""}</p>
 
-<p><small>${d.reference}</small></p>
+<p><small>${d.reference || ""}</small></p>
 
 </div>
-`).join("");
+`;
+
+}).join("");
 
 });
