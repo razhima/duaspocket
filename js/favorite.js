@@ -1,67 +1,44 @@
-const list =
-document.getElementById(
-"favoritesList"
-);
+document.addEventListener("DOMContentLoaded", function () {
 
-const duas =
-JSON.parse(
-localStorage.getItem(
-"duas"
-));
+let duas = JSON.parse(localStorage.getItem("duas")) || [];
 
-const favorites =
-duas.filter(
-d=>d.favorite
-);
+// filter only favorites
+let favorites = duas.filter(d => d.favorite === true);
 
-if(favorites.length===0){
+let container = document.getElementById("favoritesList");
 
-list.innerHTML=`
+// safety check (prevents blank page crash)
+if (!container) {
+console.error("favoritesList not found in HTML");
+return;
+}
 
+// if no favorites
+if (favorites.length === 0) {
+container.innerHTML = `
+<div class="card">
+<h2>❤️ No Favorites Yet</h2>
+<p>Tap the heart button on any dua to save it here.</p>
+</div>
+`;
+return;
+}
+
+// render favorites
+container.innerHTML = favorites.map(d => `
 <div class="card">
 
-No favorites yet.
+<h3>${d.title}</h3>
+
+<p><b>Arabic:</b></p>
+<p style="font-size:20px; direction:rtl;">${d.arabic}</p>
+
+<p><b>Translation:</b></p>
+<p>${d.translation}</p>
+
+<p><small>${d.reference}</small></p>
 
 </div>
-
-`;
-
-}else{
-
-favorites.forEach(dua=>{
-
-list.innerHTML += `
-
-<div class="card">
-
-<h3>
-
-${dua.title}
-
-</h3>
-
-<p>
-
-${dua.translation}
-
-</p>
-
-<br>
-
-<a
-href="
-detail.html?id=${dua.id}
-"
-class="btn">
-
-Read
-
-</a>
-
-</div>
-
-`;
+`).join("");
 
 });
-
-}
