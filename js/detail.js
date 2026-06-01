@@ -193,19 +193,19 @@ renderDua();
    FAVORITE TOGGLE
 ========================= */
 
-function toggleFavorite(){
+function toggleFavorite(id){
+
+let duas = JSON.parse(localStorage.getItem("duas")) || [];
+
+let dua = duas.find(d => d.id === id);
+
+if (!dua) return;
 
 dua.favorite = !dua.favorite;
 
-/* update in array */
-const index =
-duas.findIndex(d => d.id == dua.id);
-
-if(index !== -1){
-
-duas[index].favorite = dua.favorite;
-
 localStorage.setItem("duas", JSON.stringify(duas));
+
+alert("Favorite updated ❤️");
 
 }
 
