@@ -1,51 +1,43 @@
+
 /* =========================
-   APP.JS - MAIN HOME LOGIC
+   APP.JS - MAIN HOME LOGIC (FIXED)
 ========================= */
 
 /* -------------------------
-   GET DATA
+   GET DATA (SAFE)
 ------------------------- */
 
-let categories =
-JSON.parse(localStorage.getItem("categories")) || [];
-
-let duas =
-JSON.parse(localStorage.getItem("duas")) || [];
+let categories = JSON.parse(localStorage.getItem("categories")) || [];
+let duas = JSON.parse(localStorage.getItem("duas")) || [];
 
 /* -------------------------
    DOM ELEMENTS
 ------------------------- */
 
-const categoryGrid =
-document.getElementById("categoryGrid");
-
-const searchInput =
-document.getElementById("searchInput");
-
-const widgetDua =
-document.getElementById("widgetDua");
+const categoryGrid = document.getElementById("categoryGrid");
+const searchInput = document.getElementById("searchInput");
+const widgetDua = document.getElementById("widgetDua");
 
 /* =========================
-   LOAD CATEGORIES
+   RENDER CATEGORIES
 ========================= */
 
-function renderCategories(list){
+function renderCategories(list) {
 
-if(!categoryGrid) return;
+if (!categoryGrid) return;
 
 categoryGrid.innerHTML = "";
 
 list.forEach(cat => {
 
-const count =
-duas.filter(d => d.category === cat.name).length;
+let count = duas.filter(d => d.category === cat.name).length;
 
 categoryGrid.innerHTML += `
 <div class="card category-card"
 onclick="openCategory('${cat.name}')">
 
 <div class="category-icon">
-${cat.icon}
+${cat.icon || "📖"}
 </div>
 
 <h3>${cat.name}</h3>
@@ -59,13 +51,18 @@ ${cat.icon}
 
 }
 
+/* INITIAL LOAD SAFETY */
+if (categories.length > 0) {
 renderCategories(categories);
+}
 
 /* =========================
-   OPEN CATEGORY
+   OPEN CATEGORY (SAFE NAV)
 ========================= */
 
 function openCategory(name){
+
+if(!name) return;
 
 window.location.href =
 "duas.html?category=" + encodeURIComponent(name);
@@ -76,16 +73,14 @@ window.location.href =
    SEARCH CATEGORIES
 ========================= */
 
-if(searchInput){
+if (searchInput) {
 
-searchInput.addEventListener("input", function(){
+searchInput.addEventListener("input", function () {
 
-const value =
-this.value.toLowerCase();
+let value = this.value.toLowerCase();
 
-const filtered =
-categories.filter(cat =>
-cat.name.toLowerCase().includes(value)
+let filtered = categories.filter(cat =>
+(cat.name || "").toLowerCase().includes(value)
 );
 
 renderCategories(filtered);
@@ -95,56 +90,41 @@ renderCategories(filtered);
 }
 
 /* =========================
-   WIDGET DUA (HOME CARD)
+   WIDGET DUA (SAFE)
 ========================= */
 
 function loadWidget(){
 
 if(!widgetDua) return;
 
-const widgetId =
-localStorage.getItem("widgetDua");
+if(!duas.length) return;
+
+let widgetId = localStorage.getItem("widgetDua");
+
+let dua = null;
 
 if(widgetId){
+dua = duas.find(d => d.id == widgetId);
+}
 
-const dua =
-duas.find(d => d.id == widgetId);
+if(!dua){
+dua = duas[Math.floor(Math.random() * duas.length)];
+}
 
-if(dua){
+if(!dua) return;
 
 widgetDua.innerHTML = `
-<strong>${dua.title}</strong>
+<strong>${dua.title || ""}</strong>
 <br><br>
-${dua.translation}
+${dua.translation || ""}
 `;
-
-return;
-
-}
-
-}
-
-// fallback random dua
-
-if(duas.length > 0){
-
-const random =
-duas[Math.floor(Math.random() * duas.length)];
-
-widgetDua.innerHTML = `
-<strong>${random.title}</strong>
-<br><br>
-${random.translation}
-`;
-
-}
 
 }
 
 loadWidget();
 
 /* =========================
-   DARK MODE TOGGLE
+   DARK MODE
 ========================= */
 
 function toggleDark(){
@@ -161,9 +141,7 @@ document.body.classList.contains("dark")
 (function(){
 
 if(localStorage.getItem("darkMode") === "true"){
-
 document.body.classList.add("dark");
-
 }
 
 })();
@@ -174,8 +152,7 @@ document.body.classList.add("dark");
 
 function toggleMenu(){
 
-const menu =
-document.getElementById("mobileMenu");
+const menu = document.getElementById("mobileMenu");
 
 if(!menu) return;
 
@@ -185,24 +162,23 @@ menu.style.display =
 }
 
 /* =========================
-   USER GREETING (OPTIONAL)
+   USER (SAFE)
 ========================= */
 
 (function(){
 
-const user =
-JSON.parse(localStorage.getItem("currentUser"));
+try {
+const user = JSON.parse(localStorage.getItem("currentUser"));
 
 if(user){
-
-console.log("Welcome " + user.name);
-
+console.log("Welcome " + (user.name || "User"));
 }
+} catch(e){}
 
 })();
 
 /* =========================
-   LOGOUT (SAFE CALL)
+   LOGOUT
 ========================= */
 
 function logout(){
@@ -215,7 +191,7 @@ window.location.href = "login.html";
 }
 
 /* =========================
-   PWA INSTALL BUTTON HOOK
+   PWA INSTALL BUTTON
 ========================= */
 
 let deferredPrompt;
@@ -223,7 +199,6 @@ let deferredPrompt;
 window.addEventListener("beforeinstallprompt", (e) => {
 
 e.preventDefault();
-
 deferredPrompt = e;
 
 const btn = document.getElementById("installBtn");
@@ -234,8 +209,7 @@ btn.style.display = "block";
 
 });
 
-const installBtn =
-document.getElementById("installBtn");
+const installBtn = document.getElementById("installBtn");
 
 if(installBtn){
 
