@@ -97,19 +97,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const widgetDua = document.getElementById("widgetDua");
 
-if (!widgetDua) return;
+console.log("Widget element:", widgetDua);
 
-let duas = [];
+let duas;
 
 try {
-duas = JSON.parse(localStorage.getItem("duas")) || [];
+duas = JSON.parse(localStorage.getItem("duas"));
 } catch (e) {
-duas = [];
+console.error("DUAS ERROR:", e);
+duas = null;
 }
 
-// safety: no data
-if (duas.length === 0) {
-widgetDua.innerHTML = "No duas available";
+console.log("DUAS DATA:", duas);
+
+// FIX EMPTY DATA ISSUE
+if (!Array.isArray(duas) || duas.length === 0) {
+widgetDua.innerHTML = "❌ No duas loaded";
 return;
 }
 
@@ -117,27 +120,25 @@ let widgetId = localStorage.getItem("widgetDua");
 
 let dua = null;
 
-// try selected widget dua
 if (widgetId) {
 dua = duas.find(d => d.id == widgetId);
 }
 
-// fallback random
 if (!dua) {
-let index = Math.floor(Math.random() * duas.length);
-dua = duas[index];
+dua = duas[Math.floor(Math.random() * duas.length)];
 }
 
-// final safety check
+console.log("SELECTED DUA:", dua);
+
 if (!dua) {
-widgetDua.innerHTML = "No dua found";
+widgetDua.innerHTML = "❌ No dua found";
 return;
 }
 
 widgetDua.innerHTML = `
-<strong>${dua.title || "Untitled"}</strong>
+<strong>${dua.title}</strong>
 <br><br>
-${dua.translation || ""}
+${dua.translation}
 `;
 
 });
