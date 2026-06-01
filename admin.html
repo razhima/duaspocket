@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard - Duas Pocket</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<!-- =========================
+   AUTH PROTECTION
+========================= -->
+<script src="js/protect.js"></script>
+<script src="js/admin-protect.js"></script>
+
+<!-- =========================
+   NAVBAR
+========================= -->
+
+<div class="navbar">
+
+<div class="logo">
+⚙️ Admin Dashboard
+</div>
+
+<button class="btn" onclick="logout()">
+Logout
+</button>
+
+</div>
+
+<!-- =========================
+   MAIN CONTAINER
+========================= -->
+
+<div class="container">
+
+<!-- =========================
+   DASHBOARD STATS
+========================= -->
+
+<div class="grid">
+
+<div class="card stat-card">
+
+<h3>Total Duas</h3>
+
+<h1 id="totalDuas">0</h1>
+
+</div>
+
+<div class="card stat-card">
+
+<h3>Total Categories</h3>
+
+<h1 id="totalCategories">0</h1>
+
+</div>
+
+</div>
+
+<!-- =========================
+   ADD DUA FORM
+========================= -->
+
+<div class="card">
+
+<h2>Add New Dua</h2>
+
+<form id="duaForm">
+
+<input
+type="text"
+id="title"
+class="input"
+placeholder="Dua Title"
+required>
+
+<select
+id="category"
+class="input"
+required>
+
+<option value="">
+Select Category
+</option>
+
+</select>
+
+<textarea
+id="arabic"
+class="input"
+placeholder="Arabic Text"
+required></textarea>
+
+<textarea
+id="translation"
+class="input"
+placeholder="Translation"
+required></textarea>
+
+<input
+type="text"
+id="reference"
+class="input"
+placeholder="Reference (e.g. Bukhari)">
+
+<button class="btn full-btn">
+➕ Add Dua
+</button>
+
+</form>
+
+</div>
+
+<!-- =========================
+   ADD CATEGORY FORM
+========================= -->
+
+<div class="card">
+
+<h2>Add Category</h2>
+
+<form id="categoryForm">
+
+<input
+type="text"
+id="newCategory"
+class="input"
+placeholder="Category Name"
+required>
+
+<button class="btn full-btn">
+➕ Add Category
+</button>
+
+</form>
+
+</div>
+
+<!-- =========================
+   CATEGORY LIST
+========================= -->
+
+<div class="card">
+
+<h2>Manage Categories</h2>
+
+<div id="categoryList"></div>
+
+</div>
+
+<!-- =========================
+   DUA LIST
+========================= -->
+
+<div class="card">
+
+<h2>Manage Duas</h2>
+
+<div id="adminDuas"></div>
+
+</div>
+
+</div>
+
+<!-- =========================
+   SCRIPTS
+========================= -->
+
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,488 @@
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#55734B;
+min-height:100vh;
+padding-bottom:90px;
+color:#333;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+width:95%;
+max-width:1200px;
+margin:auto;
+padding:20px 0;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+background:#4A6441;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+position:sticky;
+top:0;
+z-index:999;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.logo{
+font-size:24px;
+font-weight:700;
+}
+
+.desktop-nav{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.desktop-nav a{
+text-decoration:none;
+color:white;
+font-weight:500;
+transition:.3s;
+}
+
+.desktop-nav a:hover{
+opacity:.8;
+}
+
+.desktop-nav button{
+background:none;
+border:none;
+cursor:pointer;
+font-size:18px;
+color:white;
+}
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+.hamburger{
+display:none;
+font-size:28px;
+cursor:pointer;
+}
+
+.mobile-menu{
+display:none;
+background:white;
+padding:15px;
+border-radius:0 0 20px 20px;
+box-shadow:0 10px 20px rgba(0,0,0,.1);
+}
+
+.mobile-menu a{
+display:block;
+padding:12px;
+text-decoration:none;
+color:#333;
+border-bottom:1px solid #eee;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+background:white;
+padding:20px;
+border-radius:24px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+margin-bottom:20px;
+}
+
+.card h2{
+margin-bottom:15px;
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+/* =========================
+   WIDGET CARD
+========================= */
+
+.widget-card{
+background:rgba(255,255,255,.85);
+backdrop-filter:blur(12px);
+border-radius:24px;
+padding:20px;
+border:2px solid rgba(255,255,255,.2);
+margin-bottom:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+/* =========================
+   GRID
+========================= */
+
+.grid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+/* =========================
+   CATEGORY CARDS
+========================= */
+
+.category-card{
+cursor:pointer;
+transition:.3s;
+}
+
+.category-card:hover{
+transform:translateY(-5px);
+}
+
+.category-icon{
+font-size:52px;
+margin-bottom:15px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+background:#55734B;
+color:white;
+border:none;
+padding:12px 18px;
+border-radius:14px;
+cursor:pointer;
+transition:.3s;
+font-size:15px;
+font-weight:600;
+}
+
+.btn:hover{
+opacity:.9;
+transform:translateY(-2px);
+}
+
+.full-btn{
+width:100%;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.input{
+width:100%;
+padding:14px;
+border-radius:14px;
+border:1px solid #ddd;
+margin-top:10px;
+margin-bottom:15px;
+font-size:15px;
+outline:none;
+}
+
+.input:focus{
+border-color:#55734B;
+}
+
+textarea.input{
+min-height:120px;
+resize:vertical;
+}
+
+/* =========================
+   AUTH
+========================= */
+
+.auth-container{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.auth-card{
+background:white;
+width:100%;
+max-width:420px;
+padding:30px;
+border-radius:30px;
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+
+.auth-logo{
+text-align:center;
+margin-bottom:25px;
+}
+
+.auth-logo h1{
+margin-top:10px;
+font-size:28px;
+color:#55734B;
+}
+
+.auth-logo p{
+margin-top:5px;
+color:#777;
+}
+
+.auth-footer{
+margin-top:20px;
+text-align:center;
+}
+
+.auth-footer a{
+color:#55734B;
+font-weight:bold;
+text-decoration:none;
+}
+
+/* =========================
+   DUA LIST
+========================= */
+
+.dua-item{
+transition:.3s;
+}
+
+.dua-item:hover{
+transform:translateY(-4px);
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:15px;
+}
+
+/* =========================
+   FAVORITE ICON
+========================= */
+
+.favorite{
+cursor:pointer;
+font-size:24px;
+}
+
+/* =========================
+   ARABIC TEXT
+========================= */
+
+#arabicText{
+font-size:34px;
+line-height:2;
+text-align:right;
+direction:rtl;
+font-family:'Traditional Arabic', serif;
+}
+
+/* =========================
+   FAVORITES PAGE
+========================= */
+
+.favorite-card{
+border-left:5px solid #55734B;
+}
+
+/* =========================
+   DASHBOARD STATS
+========================= */
+
+.stat-card{
+text-align:center;
+}
+
+.stat-card h1{
+font-size:42px;
+color:#55734B;
+}
+
+/* =========================
+   ADMIN TABLE AREA
+========================= */
+
+.admin-actions{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+
+/* =========================
+   INSTALL BUTTON
+========================= */
+
+#installBtn{
+margin-top:15px;
+}
+
+/* =========================
+   BOTTOM NAVIGATION
+========================= */
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:white;
+display:flex;
+justify-content:space-around;
+align-items:center;
+padding:15px;
+box-shadow:0 -5px 20px rgba(0,0,0,.1);
+z-index:999;
+}
+
+.bottom-nav a{
+text-decoration:none;
+font-size:24px;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+.dark{
+background:#1E1E1E;
+color:white;
+}
+
+.dark .card{
+background:#2D2D2D;
+color:white;
+}
+
+.dark .widget-card{
+background:#333;
+color:white;
+}
+
+.dark .input{
+background:#444;
+color:white;
+border-color:#555;
+}
+
+.dark .navbar{
+background:#1A1A1A;
+}
+
+.dark .mobile-menu{
+background:#2D2D2D;
+}
+
+.dark .mobile-menu a{
+color:white;
+}
+
+.dark .bottom-nav{
+background:#2D2D2D;
+}
+
+.dark .auth-card{
+background:#2D2D2D;
+color:white;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-track{
+background:#eee;
+}
+
+::-webkit-scrollbar-thumb{
+background:#55734B;
+border-radius:10px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+.desktop-nav{
+display:none;
+}
+
+.hamburger{
+display:block;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.actions{
+flex-direction:column;
+}
+
+.btn{
+width:100%;
+}
+
+#arabicText{
+font-size:28px;
+}
+
+.logo{
+font-size:20px;
+}
+
+}
+
+@media(max-width:480px){
+
+.container{
+width:92%;
+}
+
+.card,
+.widget-card{
+padding:16px;
+border-radius:20px;
+}
+
+.auth-card{
+padding:25px;
+}
+
+}
