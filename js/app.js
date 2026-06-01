@@ -93,35 +93,54 @@ renderCategories(filtered);
    WIDGET DUA (SAFE)
 ========================= */
 
-function loadWidget(){
+document.addEventListener("DOMContentLoaded", function () {
 
-if(!widgetDua) return;
+const widgetDua = document.getElementById("widgetDua");
 
-if(!duas.length) return;
+if (!widgetDua) return;
+
+let duas = [];
+
+try {
+duas = JSON.parse(localStorage.getItem("duas")) || [];
+} catch (e) {
+duas = [];
+}
+
+// safety: no data
+if (duas.length === 0) {
+widgetDua.innerHTML = "No duas available";
+return;
+}
 
 let widgetId = localStorage.getItem("widgetDua");
 
 let dua = null;
 
-if(widgetId){
+// try selected widget dua
+if (widgetId) {
 dua = duas.find(d => d.id == widgetId);
 }
 
-if(!dua){
-dua = duas[Math.floor(Math.random() * duas.length)];
+// fallback random
+if (!dua) {
+let index = Math.floor(Math.random() * duas.length);
+dua = duas[index];
 }
 
-if(!dua) return;
+// final safety check
+if (!dua) {
+widgetDua.innerHTML = "No dua found";
+return;
+}
 
 widgetDua.innerHTML = `
-<strong>${dua.title || ""}</strong>
+<strong>${dua.title || "Untitled"}</strong>
 <br><br>
 ${dua.translation || ""}
 `;
 
-}
-
-loadWidget();
+});
 
 /* =========================
    DARK MODE
