@@ -208,12 +208,6 @@ localStorage.setItem("duas", JSON.stringify(duas));
 alert("Favorite updated ❤️");
 
 }
-
-/* re-render */
-renderDua();
-
-}
-
 /* =========================
    OPTIONAL: AUTO SAVE VIEWED DUA (WIDGET)
 ========================= */
